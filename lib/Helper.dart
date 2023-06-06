@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:login_demo/db/User.dart';
-import 'package:login_demo/db/UserDatabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Helper {

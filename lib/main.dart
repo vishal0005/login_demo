@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:login_demo/db/login_page.dart';
+import 'package:login_demo/login_page.dart';
 import 'package:login_demo/register_page.dart';
 
 void main() {
@@ -61,7 +61,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: const Text("Demo Login"),

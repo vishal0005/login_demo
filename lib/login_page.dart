@@ -3,8 +3,6 @@ import 'package:login_demo/Helper.dart';
 import 'package:login_demo/db/UserDatabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'User.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -34,7 +32,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       body: Container(
         padding: EdgeInsets.all(20),
@@ -65,14 +62,6 @@ class _LoginPageState extends State<LoginPage> {
         )),
       ),
     );
-  }
-
-  builder() async {
-    // AppDatabase studentDatabase =
-    //     await $FloorAppDatabse.databaseBuilder('student.db').build();
-    // setState(() {
-    //   studentDao = studentDatabase.studentDao;
-    // });
   }
 
   void onLoginClick(BuildContext context) {
