@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Helper {
-
   static Future<bool> saveUser(String name) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     return await preferences.setString("name", name);
@@ -25,5 +24,10 @@ class Helper {
 
   static void toast(BuildContext context, String msg) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+  }
+
+  static void logOut(BuildContext context) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
   }
 }

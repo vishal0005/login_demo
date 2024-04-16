@@ -3,7 +3,7 @@ import 'package:login_demo/db/User.dart';
 
 @dao
 abstract class UserDao {
-  @insert
+  @Insert(onConflict: OnConflictStrategy.fail)
   Future<int> insertUser(User user);
 
   @Query("select * from User")

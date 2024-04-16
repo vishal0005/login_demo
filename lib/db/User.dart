@@ -4,6 +4,7 @@ import 'package:floor/floor.dart';
 class User {
   @PrimaryKey(autoGenerate: true)
   final int? id;
+  @primaryKey
   final String name;
   final String password;
 

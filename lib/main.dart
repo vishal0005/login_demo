@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:login_demo/dashboard.dart';
+import 'package:login_demo/db/UserDatabase.dart';
 import 'package:login_demo/login_page.dart';
 import 'package:login_demo/register_page.dart';
+
+import 'Helper.dart';
 
 void main() {
   runApp(const MyApp());
@@ -61,6 +65,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Helper.getUser().then((value) {
+      if (value != null) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => DashBoard(value)));
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Demo Login"),

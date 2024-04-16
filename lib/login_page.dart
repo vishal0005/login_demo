@@ -3,6 +3,8 @@ import 'package:login_demo/Helper.dart';
 import 'package:login_demo/db/UserDatabase.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'dashboard.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -67,6 +69,11 @@ class _LoginPageState extends State<LoginPage> {
   void onLoginClick(BuildContext context) {
     var name = nameController.text;
     var pass = passController.text;
+    userDb.userDao.getAllUser().then((value) => {
+      if(value.isEmpty){
+        Helper.toast(context, "no user found")
+      }
+    });
     userDb.userDao.getSelectedUser(name, pass).then((value) {
       if (value.isNotEmpty) {
         String saveName = value[0].name;
@@ -79,6 +86,11 @@ class _LoginPageState extends State<LoginPage> {
           Helper.toast(context, "Please enter 4 digit password");
         } else if (saveName == name && savePass == pass) {
           Helper.toast(context, "Login user successfully");
+          Helper.saveUser(name);
+          Helper.savePassword(pass);
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => DashBoard(value[0].name)),
+              (Route route) => false);
         } else {
           Helper.toast(context, "Name and password not match");
         }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_demo/dashboard.dart';
 import 'package:login_demo/Helper.dart';
 import 'package:login_demo/db/User.dart';
 
@@ -88,6 +89,10 @@ class _RegisterPageState extends State<RegisterPage> {
           .insertUser(User(null, name, pass))
           .then((value) => {toast(context, "added array : $value")});
       toast(context, "Register user successfully");
+
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => DashBoard(name)),
+          (Route route) => false);
     }
   }
 
