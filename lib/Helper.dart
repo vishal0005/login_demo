@@ -30,4 +30,8 @@ class Helper {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.clear();
   }
+
+  static void printMessage(String tag, String message) {
+    print("$tag $message");
+  }
 }

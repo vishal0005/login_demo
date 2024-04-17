@@ -35,39 +35,40 @@ class _RegisterPageState extends State<RegisterPage> {
     // TODO: implement build
     return Scaffold(
         body: Container(
-      padding: const EdgeInsets.all(20),
-      child: SafeArea(
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          TextField(
-            controller: nameController,
-            keyboardType: TextInputType.name,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), hintText: "Enter name"),
+          padding: const EdgeInsets.all(20),
+          child: SafeArea(
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.start, children: [
+              TextField(
+                controller: nameController,
+                keyboardType: TextInputType.name,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), hintText: "Enter name"),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: passController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), hintText: "Enter password"),
+              ),
+              const SizedBox(height: 10),
+              TextField(
+                controller: passConfirmController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: "Enter confirm password"),
+              ),
+              const SizedBox(height: 10),
+              TextButton(
+                  onPressed: () {
+                    onRegisterClick(context);
+                  },
+                  child: const Text("Register")),
+            ]),
           ),
-          const SizedBox(height: 10),
-          TextField(
-            controller: passController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), hintText: "Enter password"),
-          ),
-          const SizedBox(height: 10),
-          TextField(
-            controller: passConfirmController,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: "Enter confirm password"),
-          ),
-          const SizedBox(height: 10),
-          TextButton(
-              onPressed: () {
-                onRegisterClick(context);
-              },
-              child: const Text("Register")),
-        ]),
-      ),
-    ));
+        ));
   }
 
   void onRegisterClick(BuildContext context) {
@@ -85,14 +86,21 @@ class _RegisterPageState extends State<RegisterPage> {
     } else {
       Helper.saveUser(name);
       Helper.savePassword(pass);
-      userDb.userDao
-          .insertUser(User(null, name, pass))
-          .then((value) => {toast(context, "added array : $value")});
+      userDb.userDao.insertUser(User(null, name, pass)).then((value) =>
+      {
+        Helper.printMessage("Add user : ", "$value")
+        // toast(context, "added array : $value")
+      }).catchError((error) => {
+      Helper.printMessage("Add user : catchError", "$error")
+      }).onError((error, stackTrace) =>
+      {
+        Helper.printMessage("Add user : onError", "$error")
+      });
       toast(context, "Register user successfully");
 
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(builder: (context) => DashBoard(name)),
-          (Route route) => false);
+              (Route route) => false);
     }
   }
 
