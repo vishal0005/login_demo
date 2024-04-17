@@ -11,9 +11,9 @@ class FullScreenText extends StatelessWidget {
     // TODO: implement build
     return Scaffold(
         body: SafeArea(
-            child: Container(
-                constraints: BoxConstraints.expand(),
-                decoration: BoxDecoration(color: Colors.black),
+            child: Container(alignment: Alignment.center,
+                constraints: const BoxConstraints.expand(),
+                decoration: const BoxDecoration(color: Colors.black),
                 child: LgText(message, Colors.white))));
   }
 }

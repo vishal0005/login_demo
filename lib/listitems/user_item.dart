@@ -1,13 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:login_demo/db/User.dart';
 import 'package:login_demo/textviews/lg_text.dart';
 
-class UserItem extends StatelessWidget {
-  String title;
-  String description;
+import '../dashboard.dart';
 
-  UserItem(this.title, this.description, {super.key});
+typedef OnListTileClick = void Function(
+    int pos, User user); // Function type for the callback
+
+class UserItem extends StatelessWidget {
+  User user;
+  int index;
+  final OnListTileClick onTap;
+
+  UserItem(this.user, this.index, this.onTap);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +23,7 @@ class UserItem extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            decoration: BoxDecoration(color: Colors.blue),
+            decoration: const BoxDecoration(color: Colors.blue),
             child: Row(
               children: [
                 // Wrap your first row widgets in a Row
@@ -26,19 +33,24 @@ class UserItem extends StatelessWidget {
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
-                          child: LgText(description, Colors.black)),
+                          child: LgText(user.id.toString(), Colors.black)),
                       Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 10),
-                          child: LgText(title, Colors.black)),
+                          child: LgText(user.name, Colors.black)),
                       // Elements for your first row (e.g., Text, Icon, etc.)
                     ],
                   ),
                 ),
-                const Image(
-                  width: 50,
-                  height: 50,
-                  image: AssetImage("assets/icons/icon_delete.png"),
+                GestureDetector(
+                  onTap: () {
+                    onTap(index, user);
+                  },
+                  child: const Image(
+                    width: 50,
+                    height: 50,
+                    image: AssetImage("assets/icons/icon_delete.png"),
+                  ),
                 ),
               ],
             ),
